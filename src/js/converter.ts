@@ -79,6 +79,25 @@ class LinkedInToJsonResume {
 
   getWorkExperienceTable(mainThis) {
     let table = document.getElementById("work-table");
+    
+    let headerRow = table.insertRow(-1);
+
+    var headerDiv = document.createElement("th");
+    headerDiv.innerHTML = "Period";
+    headerRow.appendChild(headerDiv);
+
+    var headerDiv2 = document.createElement("th");
+    headerDiv2.innerHTML = "Company";
+    headerRow.appendChild(headerDiv2);
+
+    var headerDiv3 = document.createElement("th");
+    headerDiv3.innerHTML = "Position";
+    headerRow.appendChild(headerDiv3);
+
+    var headerDiv4 = document.createElement("th");
+    headerDiv4.innerHTML = "Summary";
+    headerRow.appendChild(headerDiv4);
+
     for (var i = 0; i < this.target.work.length; i++) {
       let row = table.insertRow(-1);
       row.classList.add("work-row");
@@ -217,6 +236,17 @@ class LinkedInToJsonResume {
 
   getLanguages() {
     let table = document.getElementById("languages-table");
+
+    let headerRow = table.insertRow(-1);
+
+    var headerDiv = document.createElement("th");
+    headerDiv.innerHTML = "Language";
+    headerRow.appendChild(headerDiv);
+
+    var headerDiv2 = document.createElement("th");
+    headerDiv2.innerHTML = "Fluency";
+    headerRow.appendChild(headerDiv2);
+
     for(var i = 0; i < this.target.languages.length; i++) {
       let row = table.insertRow(-1);
       row.classList.add("language-row");
@@ -252,6 +282,7 @@ class LinkedInToJsonResume {
 
   getSkills() {
     let table = document.getElementById("skills-table");
+
     for(var i = 0; i < this.target.skills.length; i++) {
       let row = table.insertRow(-1);
       row.classList.add("skill-row");
@@ -295,6 +326,21 @@ class LinkedInToJsonResume {
 
   getEducation() {
     let table = document.getElementById("education-table");
+
+    let headerRow = table.insertRow(-1);
+
+    var headerDiv = document.createElement("th");
+    headerDiv.innerHTML = "Period";
+    headerRow.appendChild(headerDiv);
+
+    var headerDiv2 = document.createElement("th");
+    headerDiv2.innerHTML = "School";
+    headerRow.appendChild(headerDiv2);
+
+    var headerDiv3 = document.createElement("th");
+    headerDiv3.innerHTML = "Certificate";
+    headerRow.appendChild(headerDiv3);
+
     for(var i = 0; i < this.target.education.length; i++) {
       let row = table.insertRow(-1);
       row.classList.add("education-row");
@@ -337,6 +383,17 @@ class LinkedInToJsonResume {
 
   getCertifications() {
     let table = document.getElementById("certifs-table");
+
+    let headerRow = table.insertRow(-1);
+
+    var headerDiv = document.createElement("th");
+    headerDiv.innerHTML = "Period";
+    headerRow.appendChild(headerDiv);
+
+    var headerDiv2 = document.createElement("th");
+    headerDiv2.innerHTML = "Certificate";
+    headerRow.appendChild(headerDiv2);
+
     if(!this.target.certifications) this.target.certifications = [];
     for(var i = 0; i < this.target.certifications.length; i++) {
       let row = table.insertRow(-1);

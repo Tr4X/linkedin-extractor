@@ -909,6 +909,19 @@ function () {
 
   LinkedInToJsonResume.prototype.getWorkExperienceTable = function (mainThis) {
     var table = document.getElementById("work-table");
+    var headerRow = table.insertRow(-1);
+    var headerDiv = document.createElement("th");
+    headerDiv.innerHTML = "Period";
+    headerRow.appendChild(headerDiv);
+    var headerDiv2 = document.createElement("th");
+    headerDiv2.innerHTML = "Company";
+    headerRow.appendChild(headerDiv2);
+    var headerDiv3 = document.createElement("th");
+    headerDiv3.innerHTML = "Position";
+    headerRow.appendChild(headerDiv3);
+    var headerDiv4 = document.createElement("th");
+    headerDiv4.innerHTML = "Summary";
+    headerRow.appendChild(headerDiv4);
 
     var _loop_1 = function _loop_1() {
       var row = table.insertRow(-1);
@@ -1054,6 +1067,13 @@ function () {
 
   LinkedInToJsonResume.prototype.getLanguages = function () {
     var table = document.getElementById("languages-table");
+    var headerRow = table.insertRow(-1);
+    var headerDiv = document.createElement("th");
+    headerDiv.innerHTML = "Language";
+    headerRow.appendChild(headerDiv);
+    var headerDiv2 = document.createElement("th");
+    headerDiv2.innerHTML = "Fluency";
+    headerRow.appendChild(headerDiv2);
 
     var _loop_2 = function _loop_2() {
       var row = table.insertRow(-1);
@@ -1147,6 +1167,16 @@ function () {
 
   LinkedInToJsonResume.prototype.getEducation = function () {
     var table = document.getElementById("education-table");
+    var headerRow = table.insertRow(-1);
+    var headerDiv = document.createElement("th");
+    headerDiv.innerHTML = "Period";
+    headerRow.appendChild(headerDiv);
+    var headerDiv2 = document.createElement("th");
+    headerDiv2.innerHTML = "School";
+    headerRow.appendChild(headerDiv2);
+    var headerDiv3 = document.createElement("th");
+    headerDiv3.innerHTML = "Certificate";
+    headerRow.appendChild(headerDiv3);
 
     var _loop_4 = function _loop_4() {
       var row = table.insertRow(-1);
@@ -1193,6 +1223,13 @@ function () {
 
   LinkedInToJsonResume.prototype.getCertifications = function () {
     var table = document.getElementById("certifs-table");
+    var headerRow = table.insertRow(-1);
+    var headerDiv = document.createElement("th");
+    headerDiv.innerHTML = "Period";
+    headerRow.appendChild(headerDiv);
+    var headerDiv2 = document.createElement("th");
+    headerDiv2.innerHTML = "Certificate";
+    headerRow.appendChild(headerDiv2);
     if (!this.target.certifications) this.target.certifications = [];
 
     var _loop_5 = function _loop_5() {
@@ -10184,7 +10221,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59225" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60976" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
