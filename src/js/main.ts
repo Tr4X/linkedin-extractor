@@ -46,19 +46,37 @@ function generateDocx() {
   var global = global || window;
   global.Buffer = global.Buffer || require('buffer').Buffer;
 
-  const doc = new Document(/*undefined, {
+  const doc = new Document(undefined, {
     top: 0,
     right: 0,
     bottom: 0,
     left: 0,
-}*/);
+  });
   const lineBreakParagraph = new Paragraph(" ");
 
   //doc.Header.createImage(fs.readFileSync("./src/klanik-header.jpg"), 800, 181);
   //doc.Footer.createImage(fs.readFileSync("./src/klanik-footer.jpg"), 800, 48);
   doc.addParagraph(lineBreakParagraph);
-  doc.createImage(fs.readFileSync("./src/klanik-header.jpg"), 800, 181);
-  doc.createImage(fs.readFileSync("./src/klanik-competences.png"), 800, 48);
+  doc.createImage(fs.readFileSync("./src/klanik-header.jpg"), 800, 181, {
+    floating: {
+        horizontalPosition: {
+            offset: 0,
+        },
+        verticalPosition: {
+            offset: 0,
+        },
+    },
+  });
+  doc.createImage(fs.readFileSync("./src/klanik-competences.png"), 800, 48, {
+    floating: {
+        horizontalPosition: {
+            offset: 0,
+        },
+        verticalPosition: {
+            offset: 0,
+        },
+    },
+  });
 
   const secondHeader = doc.createHeader();
   //secondHeader.createImage(fs.readFileSync("./src/klanik-second-header.png"), 800, 181);

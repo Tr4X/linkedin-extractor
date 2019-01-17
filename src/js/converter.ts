@@ -346,12 +346,33 @@ class LinkedInToJsonResume {
       row.classList.add("education-row");
 
       let dateCell = row.insertCell(0);
+      
       let date = document.createElement("input");
       date.type = "text";
       date.size = 25;
       date.classList.add("education-date-input");
       date.value = this.target.education[i]['date'];
       dateCell.appendChild(date);
+
+
+      //let skillLevelCell = row.insertCell(1);
+
+      /*var selectList = document.createElement("select");
+      selectList.classList.add("education-date-start-month-select");
+      selectList.value = this.target.education[i]['level'];
+      dateCell.appendChild(selectList);
+
+      for (var j = 1; j <= 12; j++) {
+          var option = document.createElement("option");
+          option.value = j;
+          option.text = j;
+          if (this.target.education[i]['startMonth'] == j) {
+            option.selected = true;
+          } else  {
+            option.selected = false;
+          }
+          selectList.appendChild(option);
+      }*/
 
       let typeCell = row.insertCell(1);
       let type = document.createElement("input");
@@ -487,6 +508,7 @@ class LinkedInToJsonResume {
         position: position.title || '',
         website: '',
         startDate: `${position.startDate}`,
+        endDate: `${position.endDate}`,
         summary: position.description,
         highlights: [''],
         projects: [],
@@ -514,6 +536,9 @@ class LinkedInToJsonResume {
         area: '',
         studyType: education.degree,
         startDate: `${education.startDate}`,
+        endDate: `${education.endDate}`,
+        startMonth: `${education.startDate.split('-')[0]}`,
+        startYear: `${education.startDate.split('-')[1]}`,
         gpa: '',
         courses: []
       };
@@ -535,6 +560,7 @@ class LinkedInToJsonResume {
     function processCertification(certification) {
       let object = <Certification>{
         startDate: `${certification.startDate}`,
+        endDate: `${certification.endDate}`,
         name: `${certification.name}`,
       };
 
