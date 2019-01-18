@@ -135,7 +135,7 @@ function generateDocx() {
   //langTable.Properties.setWidth(800, WidthType.AUTO);
 
   for (var i = 0; i < lineLangCount; i++) {
-    langTable.getCell(i, 0).addContent(new Paragraph("   " + linkedinToJsonResume.target.languages[i]['language'] + "   ").style("arialParag"));
+    langTable.getCell(i, 0)/*.addStartBorder(BorderStyle.DOT_DOT_DASH, 3, "green")*/.addContent(new Paragraph("   " + linkedinToJsonResume.target.languages[i]['language'] + "   ").style("arialParag"));
     langTable.getCell(i, 1).addContent(new Paragraph("   " + linkedinToJsonResume.target.languages[i]['fluency'] + "   ").style("arialParag"));
   }
 
@@ -328,11 +328,19 @@ function recompile() {
   var educationRows = document.getElementsByClassName("education-row");
   for(var i = 0; i < educationRows.length; i++) {
     if(educationRows[i].style.display != 'none') {
-      var date = educationRows[i].getElementsByClassName("education-date-input")[0].value;
+      //var date = educationRows[i].getElementsByClassName("education-date-input")[0].value;
+
+      var startMonth = educationRows[i].getElementsByClassName("education-date-start-month-select")[0].value;
+      var startYear = educationRows[i].getElementsByClassName("education-date-start-year-select")[0].value;
+      var endMonth = educationRows[i].getElementsByClassName("education-date-end-month-select")[0].value;
+      var endYear = educationRows[i].getElementsByClassName("education-date-end-year-select")[0].value;
+
+      var date = startYear + '-' + startMonth + ' - ' + endYear + '-' + endMonth;
+
       var institution = educationRows[i].getElementsByClassName("education-school-input")[0].value;
       var studyType  = educationRows[i].getElementsByClassName("education-type-input")[0].value;
 
-      linkedinToJsonResume.target.education.push({"date": date, "institution": institution, "studyType": studyType});
+      linkedinToJsonResume.target.education.push({"date": date, "institution": institution, "studyType": studyType, "startYear": startYear, "startMonth": startMonth, "endYear": endYear, "endMonth": endMonth});
     }
   }
 

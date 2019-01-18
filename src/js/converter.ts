@@ -346,21 +346,19 @@ class LinkedInToJsonResume {
       row.classList.add("education-row");
 
       let dateCell = row.insertCell(0);
-      
-      let date = document.createElement("input");
+      dateCell.style.display = 'flex';
+      /*let date = document.createElement("input");
       date.type = "text";
       date.size = 25;
       date.classList.add("education-date-input");
       date.value = this.target.education[i]['date'];
-      dateCell.appendChild(date);
-
+      dateCell.appendChild(date);*/
 
       //let skillLevelCell = row.insertCell(1);
-
-      /*var selectList = document.createElement("select");
-      selectList.classList.add("education-date-start-month-select");
-      selectList.value = this.target.education[i]['level'];
-      dateCell.appendChild(selectList);
+      var selectListStartMonth = document.createElement("select");
+      selectListStartMonth.classList.add("education-date-start-month-select");
+      selectListStartMonth.value = this.target.education[i]['startMonth'];
+      dateCell.appendChild(selectListStartMonth);
 
       for (var j = 1; j <= 12; j++) {
           var option = document.createElement("option");
@@ -371,8 +369,71 @@ class LinkedInToJsonResume {
           } else  {
             option.selected = false;
           }
-          selectList.appendChild(option);
-      }*/
+          selectListStartMonth.appendChild(option);
+      }
+
+      var selectListStartYear = document.createElement("select");
+      selectListStartYear.classList.add("education-date-start-year-select");
+      selectListStartYear.value = this.target.education[i]['startYear'];
+      dateCell.appendChild(selectListStartYear);
+
+      for (var j = 1900; j <= 2020; j++) {
+          var option = document.createElement("option");
+          option.value = j;
+          option.text = j;
+          //console.log(j);
+          if (this.target.education[i]['startYear'] == j) {
+            option.selected = true;
+          } else  {
+            option.selected = false;
+          }
+          selectListStartYear.appendChild(option);
+      }
+
+
+      var dateSepDiv = document.createElement("div");
+
+      var dateSeparator = document.createTextNode(" - ");
+      dateSepDiv.style.padding = "0px 10px 0px 10px";
+      dateSepDiv.appendChild(dateSeparator);
+      dateCell.appendChild(dateSepDiv);
+
+
+
+      var selectListEndMonth = document.createElement("select");
+      selectListEndMonth.classList.add("education-date-end-month-select");
+      selectListEndMonth.value = this.target.education[i]['endMonth'];
+      dateCell.appendChild(selectListEndMonth);
+
+      for (var j = 1; j <= 12; j++) {
+          var option = document.createElement("option");
+          option.value = j;
+          option.text = j;
+          if (parseInt(this.target.education[i]['endMonth'], 10) == j) {
+            option.selected = true;
+          } else  {
+            option.selected = false;
+          }
+          selectListEndMonth.appendChild(option);
+      }
+
+      var selectListEndYear = document.createElement("select");
+      selectListEndYear.classList.add("education-date-end-year-select");
+      selectListEndYear.value = this.target.education[i]['endYear'];
+      dateCell.appendChild(selectListEndYear);
+
+      for (var j = 1900; j <= 2020; j++) {
+          var option = document.createElement("option");
+          option.value = j;
+          option.text = j;
+          //console.log(j);
+          if (parseInt(this.target.education[i]['endYear'], 10) == j) {
+            option.selected = true;
+          } else  {
+            option.selected = false;
+          }
+          selectListEndYear.appendChild(option);
+      }
 
       let typeCell = row.insertCell(1);
       let type = document.createElement("input");
@@ -537,17 +598,23 @@ class LinkedInToJsonResume {
         studyType: education.degree,
         startDate: `${education.startDate}`,
         endDate: `${education.endDate}`,
-        startMonth: `${education.startDate.split('-')[0]}`,
-        startYear: `${education.startDate.split('-')[1]}`,
+        startMonth: education.startDate.split('-')[1],
+        startYear: education.startDate.split('-')[0],
         gpa: '',
-        courses: []
+        courses: [],
+        endMonth: education.endDate.split('-')[1],
+        endYear: education.endDate.split('-')[0],
       };
 
       if (education.endDate) {
         object.endDate = `${education.endDate}`;
         object.date = `${education.startDate}` + " - " + `${education.endDate}`;
+        object.endMonth: education.endDate.split('-')[1];
+        object.endYear: education.endDate.split('-')[0];
       } else {
         object.date = `${education.startDate}` + " - now";
+        object.endMonth: "now";
+        object.endYear: "now";
       }
 
       return object;

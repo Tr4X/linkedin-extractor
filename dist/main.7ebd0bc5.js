@@ -1182,28 +1182,95 @@ function () {
       var row = table.insertRow(-1);
       row.classList.add("education-row");
       var dateCell = row.insertCell(0);
-      var date = document.createElement("input");
+      dateCell.style.display = 'flex';
+      /*let date = document.createElement("input");
       date.type = "text";
       date.size = 25;
       date.classList.add("education-date-input");
-      date.value = this_4.target.education[i]['date'];
-      dateCell.appendChild(date); //let skillLevelCell = row.insertCell(1);
+      date.value = this.target.education[i]['date'];
+      dateCell.appendChild(date);*/
+      //let skillLevelCell = row.insertCell(1);
 
-      /*var selectList = document.createElement("select");
-      selectList.classList.add("education-date-start-month-select");
-      selectList.value = this.target.education[i]['level'];
-      dateCell.appendChild(selectList);
-             for (var j = 1; j <= 12; j++) {
-          var option = document.createElement("option");
-          option.value = j;
-          option.text = j;
-          if (this.target.education[i]['startMonth'] == j) {
-            option.selected = true;
-          } else  {
-            option.selected = false;
-          }
-          selectList.appendChild(option);
-      }*/
+      selectListStartMonth = document.createElement("select");
+      selectListStartMonth.classList.add("education-date-start-month-select");
+      selectListStartMonth.value = this_4.target.education[i]['startMonth'];
+      dateCell.appendChild(selectListStartMonth);
+
+      for (var j = 1; j <= 12; j++) {
+        option = document.createElement("option");
+        option.value = j;
+        option.text = j;
+
+        if (this_4.target.education[i]['startMonth'] == j) {
+          option.selected = true;
+        } else {
+          option.selected = false;
+        }
+
+        selectListStartMonth.appendChild(option);
+      }
+
+      selectListStartYear = document.createElement("select");
+      selectListStartYear.classList.add("education-date-start-year-select");
+      selectListStartYear.value = this_4.target.education[i]['startYear'];
+      dateCell.appendChild(selectListStartYear);
+
+      for (var j = 1900; j <= 2020; j++) {
+        option = document.createElement("option");
+        option.value = j;
+        option.text = j; //console.log(j);
+
+        if (this_4.target.education[i]['startYear'] == j) {
+          option.selected = true;
+        } else {
+          option.selected = false;
+        }
+
+        selectListStartYear.appendChild(option);
+      }
+
+      dateSepDiv = document.createElement("div");
+      dateSeparator = document.createTextNode(" - ");
+      dateSepDiv.style.padding = "0px 10px 0px 10px";
+      dateSepDiv.appendChild(dateSeparator);
+      dateCell.appendChild(dateSepDiv);
+      selectListEndMonth = document.createElement("select");
+      selectListEndMonth.classList.add("education-date-end-month-select");
+      selectListEndMonth.value = this_4.target.education[i]['endMonth'];
+      dateCell.appendChild(selectListEndMonth);
+
+      for (var j = 1; j <= 12; j++) {
+        option = document.createElement("option");
+        option.value = j;
+        option.text = j;
+
+        if (parseInt(this_4.target.education[i]['endMonth'], 10) == j) {
+          option.selected = true;
+        } else {
+          option.selected = false;
+        }
+
+        selectListEndMonth.appendChild(option);
+      }
+
+      selectListEndYear = document.createElement("select");
+      selectListEndYear.classList.add("education-date-end-year-select");
+      selectListEndYear.value = this_4.target.education[i]['endYear'];
+      dateCell.appendChild(selectListEndYear);
+
+      for (var j = 1900; j <= 2020; j++) {
+        option = document.createElement("option");
+        option.value = j;
+        option.text = j; //console.log(j);
+
+        if (parseInt(this_4.target.education[i]['endYear'], 10) == j) {
+          option.selected = true;
+        } else {
+          option.selected = false;
+        }
+
+        selectListEndYear.appendChild(option);
+      }
 
       var typeCell = row.insertCell(1);
       var type = document.createElement("input");
@@ -1230,6 +1297,16 @@ function () {
     };
 
     var this_4 = this,
+        selectListStartMonth,
+        option,
+        selectListStartYear,
+        option,
+        dateSepDiv,
+        dateSeparator,
+        selectListEndMonth,
+        option,
+        selectListEndYear,
+        option,
         btn,
         t;
 
@@ -1372,17 +1449,27 @@ function () {
         studyType: education.degree,
         startDate: "" + education.startDate,
         endDate: "" + education.endDate,
-        startMonth: "" + education.startDate.split('-')[0],
-        startYear: "" + education.startDate.split('-')[1],
+        startMonth: education.startDate.split('-')[1],
+        startYear: education.startDate.split('-')[0],
         gpa: '',
-        courses: []
+        courses: [],
+        endMonth: education.endDate.split('-')[1],
+        endYear: education.endDate.split('-')[0]
       };
 
       if (education.endDate) {
         object.endDate = "" + education.endDate;
         object.date = "" + education.startDate + " - " + ("" + education.endDate);
+        object.endMonth;
+        education.endDate.split('-')[1];
+        object.endYear;
+        education.endDate.split('-')[0];
       } else {
         object.date = "" + education.startDate + " - now";
+        object.endMonth;
+        "now";
+        object.endYear;
+        "now";
       }
 
       return object;
@@ -9591,7 +9678,9 @@ function generateDocx() {
   doc.addTable(langTable); //langTable.Properties.setWidth(800, WidthType.AUTO);
 
   for (var i = 0; i < lineLangCount; i++) {
-    langTable.getCell(i, 0).addContent(new Paragraph("   " + linkedinToJsonResume.target.languages[i]['language'] + "   ").style("arialParag"));
+    langTable.getCell(i, 0)
+    /*.addStartBorder(BorderStyle.DOT_DOT_DASH, 3, "green")*/
+    .addContent(new Paragraph("   " + linkedinToJsonResume.target.languages[i]['language'] + "   ").style("arialParag"));
     langTable.getCell(i, 1).addContent(new Paragraph("   " + linkedinToJsonResume.target.languages[i]['fluency'] + "   ").style("arialParag"));
   }
 
@@ -9776,13 +9865,22 @@ function recompile() {
 
   for (var i = 0; i < educationRows.length; i++) {
     if (educationRows[i].style.display != 'none') {
-      var date = educationRows[i].getElementsByClassName("education-date-input")[0].value;
+      //var date = educationRows[i].getElementsByClassName("education-date-input")[0].value;
+      var startMonth = educationRows[i].getElementsByClassName("education-date-start-month-select")[0].value;
+      var startYear = educationRows[i].getElementsByClassName("education-date-start-year-select")[0].value;
+      var endMonth = educationRows[i].getElementsByClassName("education-date-end-month-select")[0].value;
+      var endYear = educationRows[i].getElementsByClassName("education-date-end-year-select")[0].value;
+      var date = startYear + '-' + startMonth + ' - ' + endYear + '-' + endMonth;
       var institution = educationRows[i].getElementsByClassName("education-school-input")[0].value;
       var studyType = educationRows[i].getElementsByClassName("education-type-input")[0].value;
       linkedinToJsonResume.target.education.push({
         "date": date,
         "institution": institution,
-        "studyType": studyType
+        "studyType": studyType,
+        "startYear": startYear,
+        "startMonth": startMonth,
+        "endYear": endYear,
+        "endMonth": endMonth
       });
     }
   } // GET CERTIFICATIONS
@@ -10266,7 +10364,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56943" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58526" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
