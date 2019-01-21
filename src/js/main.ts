@@ -161,7 +161,7 @@ function generateDocx() {
 
   for (var i = 0; i < linkedinToJsonResume.target.certifications.length; i++) {
     let certifParag = new Paragraph();
-    let text = linkedinToJsonResume.target.certifications[i]['date'] + ": " + linkedinToJsonResume.target.certifications[i]['name'];
+    let text = linkedinToJsonResume.target.certifications[i]['startDate'] + ": " + linkedinToJsonResume.target.certifications[i]['name'];
     certifParag.addRun(new TextRun(text).font("Arial"));
     doc.addParagraph(certifParag);
   }
@@ -285,12 +285,19 @@ function recompile() {
   var workRows = document.getElementsByClassName("work-row");
   for(var i = 0; i < workRows.length; i++) {
     if(workRows[i].style.display != 'none') {
-      var date = workRows[i].getElementsByClassName("work-date-input")[0].value;
+      //var date = workRows[i].getElementsByClassName("work-date-input")[0].value;
       var company = workRows[i].getElementsByClassName("work-company-input")[0].value;
       var position = workRows[i].getElementsByClassName("work-position-input")[0].value;
       var summary = workRows[i].getElementsByClassName("work-summary-input")[0].value;
 
-      linkedinToJsonResume.target.work.push({"date": date, "company": company, "position": position, "summary": summary, "projects": [], "accomplishments": [], "technologies": []});
+      var startMonth = workRows[i].getElementsByClassName("work-date-start-month-select")[0].value;
+      var startYear = workRows[i].getElementsByClassName("work-date-start-year-select")[0].value;
+      var endMonth = workRows[i].getElementsByClassName("work-date-end-month-select")[0].value;
+      var endYear = workRows[i].getElementsByClassName("work-date-end-year-select")[0].value;
+
+      var date = startYear + '-' + startMonth + ' - ' + endYear + '-' + endMonth;
+
+      linkedinToJsonResume.target.work.push({"date": date, "company": company, "position": position, "summary": summary, "projects": [], "accomplishments": [], "technologies": [], "startYear": startYear, "startMonth": startMonth, "endYear": endYear, "endMonth": endMonth});
     }
   }
   
@@ -348,10 +355,10 @@ function recompile() {
   var certifRows = document.getElementsByClassName("certif-row");
   for(var i = 0; i < certifRows.length; i++) {
     if(certifRows[i].style.display != 'none') {
-      var date = certifRows[i].getElementsByClassName("certif-date-input")[0].value;
+      var startDate = certifRows[i].getElementsByClassName("certif-date-input")[0].value;
       var name = certifRows[i].getElementsByClassName("certif-name-input")[0].value;
 
-      linkedinToJsonResume.target.certifications.push({"name": name, "date": date});
+      linkedinToJsonResume.target.certifications.push({"name": name, "startDate": startDate});
     }
   }
 

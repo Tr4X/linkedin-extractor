@@ -1,1 +1,123 @@
-<!doctype html><html> <head> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title>LinkedIn to JSON Resume</title> <meta name="description" content="Export your LinkedIn profile to JSON Resume format."> <meta name="viewport" content="width=device-width, initial-scale=1"> <link rel="stylesheet" type="text/css" href="https://d2v52k3cl9vedd.cloudfront.net/basscss/6.1.6/basscss.min.css"> <link rel="stylesheet" type="text/css" href="basic.ca677264.css"> <link rel="stylesheet" type="text/css" href="prism.9253c6d6.css"> <script src="https://unpkg.com/docx@4.0.0/build/index.js"></script> <script src="https://unpkg.com/buffer@5.2.1/index.js"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script> </head> <body class="post p2 p-responsive wrap"> <script src="https://unpkg.com/vue@2.5.17/dist/vue.js"></script> <main class="measure"> <h2>Instructions</h2> <ol> <li>Go to the <a href="https://www.linkedin.com/settings/data-export-page">Data Export Page</a> on LinkedIn and click on "Request archive".</li> <li>You will get an email from LinkedIn confirming your request. You will need to wait up to 72 hours to get a link to download your data.</li> <li>After some hours you will receive a link to download your archive. Click on it and save the zip file.</li> <li>Drag and drop or select the file (its name should be something like Basic_LinkedInDataExport_XX-XX-XXXX.zip or Complete_LinkedInDataExport_XX-XX-XXXX.zip) in the area below:</li>  </ol> <div> <p id="filedrag"> Drop a LinkedIn archive zip file or <button class="button" id="select-file">select a file</button>. </p> <input type="file" id="fileselect" name="fileselect[]"> </div> <br> <button class="button docx">Save and generate doc</button>  <h2 id="result-basic">Basic info</h2> First name: <input type="text" id="input-firstname"><br> Last name: <input type="text" id="input-lastname"><br> Label: <input type="text" size="55" id="input-label"><br> Email: <input type="text" size="55" id="input-email"><br> Phone: <input type="text" size="55" id="input-phone"><br> <h2 id="result-language">Languages</h2> <table id="languages-table" style="width:100px"> <tr> <td></td> <td></td> <td></td> </tr> </table><br> <button class="button add-language">Add language</button> <h2 id="result-education">Education</h2> <table id="education-table" style="width:100px"> <tr> <td></td> <td></td> <td></td> <td></td> </tr> </table><br> <button class="button add-education">Add education</button> <h2 id="result-certifs">Certification</h2> <table id="certifs-table" style="width:100px"> <tr> <td></td> <td></td> <td></td> </tr> </table><br> <button class="button add-certif">Add certification</button> <h2 id="result-skills">Skills</h2> <table id="skills-table" style="width:100px"> <tr> <td></td> <td></td> <td></td> </tr> </table><br> <button class="button add-skill">Add skill</button> <h2 id="result-basic">Experience</h2> <table id="work-table"> <tr> <td></td> <td></td> <td></td> <td></td> <td></td> </tr> </table><br> <button class="button add-work">Add work experience</button> <pre><code id="output-basic"></code></pre> <h2 id="result">Result</h2> <pre><code id="output" class="language-javascript"></code></pre> <button class="button download">Download as resume.json</button> </main> <script src="main.2262ac2e.js"></script> <script src="prism.2f6d8a2c.js" data-manual=""></script> <script>!function(e,a,t,n,g,c){e.GoogleAnalyticsObject=n,e.ga||(e.ga=function(){(e.ga.q=e.ga.q||[]).push(arguments)}),e.ga.l=+new Date,g=a.createElement(t),c=a.getElementsByTagName(t)[0],g.src="//www.google-analytics.com/analytics.js",c.parentNode.insertBefore(g,c)}(window,document,"script","ga"),ga("create","UA-39254352-1"),ga("send","pageview");</script> </body> </html>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>LinkedIn to JSON Resume</title>
+    <meta name="description" content="Export your LinkedIn profile to JSON Resume format.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://d2v52k3cl9vedd.cloudfront.net/basscss/6.1.6/basscss.min.css">
+    <link rel="stylesheet" type="text/css" href="/basic.5f381a0f.css">
+    <link rel="stylesheet" type="text/css" href="/prism.743dd447.css">
+
+    <script src="https://unpkg.com/docx@4.0.0/build/index.js"></script>
+    <script src="https://unpkg.com/buffer@5.2.1/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script>
+  <script src="/basic.5f381a0f.js"></script><script src="/prism.743dd447.js"></script></head>
+  <body class="post p2 p-responsive wrap">
+    <script src="https://unpkg.com/vue@2.5.17/dist/vue.js"></script>
+    <main class="measure">
+      <h2>Instructions</h2>
+      <ol>
+        <li>Go to the <a href="https://www.linkedin.com/settings/data-export-page">Data Export Page</a> on LinkedIn and click on "Request archive".</li>
+        <li>You will get an email from LinkedIn confirming your request. You will need to wait up to 72 hours to get a link to download your data.</li>
+        <li>After some hours you will receive a link to download your archive. Click on it and save the zip file.</li>
+        <li>Drag and drop or select the file (its name should be something like Basic_LinkedInDataExport_XX-XX-XXXX.zip or Complete_LinkedInDataExport_XX-XX-XXXX.zip) in the area below:</li>
+        
+      </ol>
+
+      <div>
+        <p id="filedrag">
+          Drop a LinkedIn archive zip file or <button class="button" id="select-file">select a file</button>.
+        </p>
+        <input type="file" id="fileselect" name="fileselect[]">
+      </div>
+      <br>
+      <button class="button docx">Save and generate doc</button>
+      <!--button class="button compile">Compile</button-->
+
+      <h2 id="result-basic">Basic info</h2>
+      First name: <input type="text" id="input-firstname"><br>
+      Last name: <input type="text" id="input-lastname"><br>
+      Label: <input type="text" size="55" id="input-label"><br>
+      Email: <input type="text" size="55" id="input-email"><br>
+      Phone: <input type="text" size="55" id="input-phone"><br>
+
+      <h2 id="result-language">Languages</h2>
+      <table id="languages-table" style="width: 100px">
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table><br>
+      <button class="button add-language">Add language</button>
+
+      <h2 id="result-education">Education</h2>
+      <table id="education-table" style="width: 100px">
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table><br>
+      <button class="button add-education">Add education</button>
+
+      <h2 id="result-certifs">Certification</h2>
+      <table id="certifs-table" style="width: 100px">
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table><br>
+      <button class="button add-certif">Add certification</button>
+
+      <h2 id="result-skills">Skills</h2>
+      <table id="skills-table" style="width: 100px">
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table><br>
+      <button class="button add-skill">Add skill</button>
+
+
+      <h2 id="result-basic">Experience</h2>
+      <table id="work-table">
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table><br>
+      <button class="button add-work">Add work experience</button>
+      <pre><code id="output-basic"></code></pre>
+
+      <h2 id="result">Result</h2>
+      <pre><code id="output" class="language-javascript"></code></pre>
+      <button class="button download">Download as resume.json</button>
+    </main>
+  
+    <script src="/main.7ebd0bc5.js"></script>
+    <script src="/prism.b8354fcc.js" data-manual=""></script>
+    <script>(function (b, o, i, l, e, r) {
+  b.GoogleAnalyticsObject = l;
+  b[l] || (b[l] = function () {
+    (b[l].q = b[l].q || []).push(arguments);
+  });
+  b[l].l = +new Date();
+  e = o.createElement(i);
+  r = o.getElementsByTagName(i)[0];
+  e.src = '//www.google-analytics.com/analytics.js';
+  r.parentNode.insertBefore(e, r);
+})(window, document, 'script', 'ga');
+
+ga('create', 'UA-39254352-1');
+ga('send', 'pageview');</script>
+  </body>
+</html>

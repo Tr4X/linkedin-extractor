@@ -911,7 +911,7 @@ function () {
     var table = document.getElementById("work-table");
     var headerRow = table.insertRow(-1);
     var headerDiv = document.createElement("th");
-    headerDiv.innerHTML = "Period";
+    headerDiv.innerHTML = "Date";
     headerRow.appendChild(headerDiv);
     var headerDiv2 = document.createElement("th");
     headerDiv2.innerHTML = "Company";
@@ -926,13 +926,111 @@ function () {
     var _loop_1 = function _loop_1() {
       var row = table.insertRow(-1);
       row.classList.add("work-row");
-      var date = row.insertCell(0);
-      var dateInput = document.createElement('input');
+      /*let date = row.insertCell(0);
+      let dateInput = document.createElement('input');
       dateInput.type = "text";
       dateInput.size = 25;
       dateInput.classList.add("work-date-input");
-      dateInput.value = this_1.target.work[i]['date'];
-      date.appendChild(dateInput);
+      dateInput.value = this.target.work[i]['date'];
+      date.appendChild(dateInput);*/
+
+      var dateCell = row.insertCell(0);
+      dateCell.style.display = 'flex';
+      selectListStartMonth = document.createElement("select");
+      selectListStartMonth.classList.add("work-date-start-month-select");
+      selectListStartMonth.value = this_1.target.work[i]['startMonth'];
+      dateCell.appendChild(selectListStartMonth);
+
+      for (var j = 1; j <= 12; j++) {
+        option = document.createElement("option");
+        option.value = j;
+        option.text = j;
+
+        if (this_1.target.work[i]['startMonth'] == j) {
+          option.selected = true;
+        } else {
+          option.selected = false;
+        }
+
+        selectListStartMonth.appendChild(option);
+      }
+
+      selectListStartYear = document.createElement("select");
+      selectListStartYear.classList.add("work-date-start-year-select");
+      selectListStartYear.value = this_1.target.work[i]['startYear'];
+      dateCell.appendChild(selectListStartYear);
+
+      for (var j = 1900; j <= 2020; j++) {
+        option = document.createElement("option");
+        option.value = j;
+        option.text = j; //console.log(j);
+
+        if (this_1.target.work[i]['startYear'] == j) {
+          option.selected = true;
+        } else {
+          option.selected = false;
+        }
+
+        selectListStartYear.appendChild(option);
+      }
+
+      dateSepDiv = document.createElement("div");
+      dateSeparator = document.createTextNode(" - ");
+      dateSepDiv.style.padding = "0px 10px 0px 10px";
+      dateSepDiv.appendChild(dateSeparator);
+      dateCell.appendChild(dateSepDiv);
+      selectListEndMonth = document.createElement("select");
+      selectListEndMonth.classList.add("work-date-end-month-select");
+      selectListEndMonth.value = this_1.target.work[i]['endMonth'];
+      dateCell.appendChild(selectListEndMonth);
+
+      for (var j = 1; j <= 12; j++) {
+        option = document.createElement("option");
+        option.value = j;
+        option.text = j;
+
+        if (parseInt(this_1.target.work[i]['endMonth'], 10) == j) {
+          option.selected = true;
+        } else {
+          option.selected = false;
+        }
+
+        selectListEndMonth.appendChild(option);
+      }
+
+      selectListEndYear = document.createElement("select");
+      selectListEndYear.classList.add("work-date-end-year-select");
+      selectListEndYear.value = this_1.target.work[i]['endYear'];
+      dateCell.appendChild(selectListEndYear);
+
+      for (var j = 1900; j <= 2020; j++) {
+        option = document.createElement("option");
+        option.value = j;
+        option.text = j; //console.log(j);
+
+        if (parseInt(this_1.target.work[i]['endYear'], 10) == j) {
+          option.selected = true;
+        } else {
+          option.selected = false;
+        }
+
+        selectListEndYear.appendChild(option);
+      }
+      /*var checkbox = document.createElement('input');
+          checkbox.type = "checkbox";
+          checkbox.value = 1;
+          checkbox.name = "todo[]";
+             checkbox.onclick = function() {
+        console.log("SALUT BITCHES");
+        if(checkbox.checked){
+          console.log("Checked");
+        } else {
+          console.log("NOT Checked");
+        }
+      }
+             dateCell.appendChild(checkbox);*/
+
+
       var company = row.insertCell(1);
       var companyInput = document.createElement('input');
       companyInput.type = "text";
@@ -1012,23 +1110,23 @@ function () {
         technoTitleCell.style.fontWeight = 'bold';
         technoTitleCell.style.fontSyle = 'italic';
 
-        for (var j = 0; j < this_1.target.work[i]['projects'].length; j++) {
+        for (var j_1 = 0; j_1 < this_1.target.work[i]['projects'].length; j_1++) {
           var projectsRow = table.insertRow(-1);
           projectsRow.insertCell(0);
           projectsRow.id = i;
           projectsRow.classList.add("project-sub-row");
           projDiv = document.createElement("div");
-          projDiv.innerHTML = this_1.target.work[i]['projects'][j];
+          projDiv.innerHTML = this_1.target.work[i]['projects'][j_1];
           projDiv.classList.add("project-project-cell");
           var proCell = projectsRow.insertCell(1);
           proCell.appendChild(projDiv);
           accDiv = document.createElement("div");
-          accDiv.innerHTML = this_1.target.work[i]['accomplishments'][j];
+          accDiv.innerHTML = this_1.target.work[i]['accomplishments'][j_1];
           accDiv.classList.add("project-accomplishment-cell");
           var accCell = projectsRow.insertCell(2);
           accCell.appendChild(accDiv);
           techDiv = document.createElement("div");
-          techDiv.innerHTML = this_1.target.work[i]['technologies'][j];
+          techDiv.innerHTML = this_1.target.work[i]['technologies'][j_1];
           techDiv.classList.add("project-technologie-cell");
           var techCell = projectsRow.insertCell(3);
           techCell.appendChild(techDiv);
@@ -1037,6 +1135,16 @@ function () {
     };
 
     var this_1 = this,
+        selectListStartMonth,
+        option,
+        selectListStartYear,
+        option,
+        dateSepDiv,
+        dateSeparator,
+        selectListEndMonth,
+        option,
+        selectListEndYear,
+        option,
         addBtn,
         addText,
         _this,
@@ -1169,7 +1277,7 @@ function () {
     var table = document.getElementById("education-table");
     var headerRow = table.insertRow(-1);
     var headerDiv = document.createElement("th");
-    headerDiv.innerHTML = "Period";
+    headerDiv.innerHTML = "Date";
     headerRow.appendChild(headerDiv);
     var headerDiv2 = document.createElement("th");
     headerDiv2.innerHTML = "School";
@@ -1319,7 +1427,7 @@ function () {
     var table = document.getElementById("certifs-table");
     var headerRow = table.insertRow(-1);
     var headerDiv = document.createElement("th");
-    headerDiv.innerHTML = "Period";
+    headerDiv.innerHTML = "Date";
     headerRow.appendChild(headerDiv);
     var headerDiv2 = document.createElement("th");
     headerDiv2.innerHTML = "Certificate";
@@ -1330,16 +1438,36 @@ function () {
       var row = table.insertRow(-1);
       row.classList.add("certif-row");
       var dateCell = row.insertCell(0);
-      var date = document.createElement("input");
+      /*let date = document.createElement("input");
       date.type = "text";
       date.size = 35;
       date.classList.add("certif-date-input");
-      date.value = this_5.target.certifications[i]['date'];
-      dateCell.appendChild(date);
+      date.value = this.target.certifications[i]['date'];
+      dateCell.appendChild(date);*/
+
+      selectListStartYear = document.createElement("select");
+      selectListStartYear.classList.add("certif-date-input");
+      selectListStartYear.value = this_5.target.certifications[i]['startDate'];
+      dateCell.appendChild(selectListStartYear);
+
+      for (var j = 1900; j <= 2020; j++) {
+        option = document.createElement("option");
+        option.value = j;
+        option.text = j; //console.log(j);
+
+        if (this_5.target.certifications[i]['startDate'] == j) {
+          option.selected = true;
+        } else {
+          option.selected = false;
+        }
+
+        selectListStartYear.appendChild(option);
+      }
+
       var nameCell = row.insertCell(1);
       var name = document.createElement("input");
       name.type = "text";
-      name.size = 35;
+      name.size = 55;
       name.classList.add("certif-name-input");
       name.value = this_5.target.certifications[i]['name'];
       nameCell.appendChild(name);
@@ -1354,6 +1482,8 @@ function () {
     };
 
     var this_5 = this,
+        selectListStartYear,
+        option,
         btn,
         t;
 
@@ -1415,6 +1545,7 @@ function () {
 
   LinkedInToJsonResume.prototype.processPosition = function (source) {
     function processPosition(position) {
+      var today = new Date();
       var object = {
         company: position.companyName,
         position: position.title || '',
@@ -1425,14 +1556,26 @@ function () {
         highlights: [''],
         projects: [],
         accomplishments: [],
-        technologies: []
+        technologies: [],
+        startMonth: position.startDate.split('-')[1],
+        startYear: position.startDate.split('-')[0],
+        endMonth: position.endDate === null ? today.getMonth() + 1 : position.endDate.split('-')[1],
+        endYear: position.endDate === null ? today.getFullYear() : position.endDate.split('-')[0]
       };
 
       if (position.endDate) {
         object.endDate = "" + position.endDate;
         object.date = "" + position.startDate + " - " + ("" + position.endDate);
+        object.endMonth;
+        position.endDate.split('-')[1];
+        object.endYear;
+        position.endDate.split('-')[0];
       } else {
         object.date = "" + position.startDate + " - now";
+        object.endMonth;
+        today.getMonth() + 1;
+        object.endYear;
+        today.getFullYear();
       }
 
       return object;
@@ -9701,7 +9844,7 @@ function generateDocx() {
 
   for (var i = 0; i < linkedinToJsonResume.target.certifications.length; i++) {
     var certifParag = new Paragraph();
-    var text = linkedinToJsonResume.target.certifications[i]['date'] + ": " + linkedinToJsonResume.target.certifications[i]['name'];
+    var text = linkedinToJsonResume.target.certifications[i]['startDate'] + ": " + linkedinToJsonResume.target.certifications[i]['name'];
     certifParag.addRun(new TextRun(text).font("Arial"));
     doc.addParagraph(certifParag);
   }
@@ -9812,10 +9955,15 @@ function recompile() {
 
   for (var i = 0; i < workRows.length; i++) {
     if (workRows[i].style.display != 'none') {
-      var date = workRows[i].getElementsByClassName("work-date-input")[0].value;
+      //var date = workRows[i].getElementsByClassName("work-date-input")[0].value;
       var company = workRows[i].getElementsByClassName("work-company-input")[0].value;
       var position = workRows[i].getElementsByClassName("work-position-input")[0].value;
       var summary = workRows[i].getElementsByClassName("work-summary-input")[0].value;
+      var startMonth = workRows[i].getElementsByClassName("work-date-start-month-select")[0].value;
+      var startYear = workRows[i].getElementsByClassName("work-date-start-year-select")[0].value;
+      var endMonth = workRows[i].getElementsByClassName("work-date-end-month-select")[0].value;
+      var endYear = workRows[i].getElementsByClassName("work-date-end-year-select")[0].value;
+      var date = startYear + '-' + startMonth + ' - ' + endYear + '-' + endMonth;
       linkedinToJsonResume.target.work.push({
         "date": date,
         "company": company,
@@ -9823,7 +9971,11 @@ function recompile() {
         "summary": summary,
         "projects": [],
         "accomplishments": [],
-        "technologies": []
+        "technologies": [],
+        "startYear": startYear,
+        "startMonth": startMonth,
+        "endYear": endYear,
+        "endMonth": endMonth
       });
     }
   }
@@ -9890,11 +10042,11 @@ function recompile() {
 
   for (var i = 0; i < certifRows.length; i++) {
     if (certifRows[i].style.display != 'none') {
-      var date = certifRows[i].getElementsByClassName("certif-date-input")[0].value;
+      var startDate = certifRows[i].getElementsByClassName("certif-date-input")[0].value;
       var name = certifRows[i].getElementsByClassName("certif-name-input")[0].value;
       linkedinToJsonResume.target.certifications.push({
         "name": name,
-        "date": date
+        "startDate": startDate
       });
     }
   } // REBUILD UI
@@ -10364,7 +10516,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58526" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50310" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

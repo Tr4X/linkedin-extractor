@@ -83,7 +83,7 @@ class LinkedInToJsonResume {
     let headerRow = table.insertRow(-1);
 
     var headerDiv = document.createElement("th");
-    headerDiv.innerHTML = "Period";
+    headerDiv.innerHTML = "Date";
     headerRow.appendChild(headerDiv);
 
     var headerDiv2 = document.createElement("th");
@@ -101,13 +101,113 @@ class LinkedInToJsonResume {
     for (var i = 0; i < this.target.work.length; i++) {
       let row = table.insertRow(-1);
       row.classList.add("work-row");
-      let date = row.insertCell(0);
+      /*let date = row.insertCell(0);
       let dateInput = document.createElement('input');
       dateInput.type = "text";
       dateInput.size = 25;
       dateInput.classList.add("work-date-input");
       dateInput.value = this.target.work[i]['date'];
-      date.appendChild(dateInput);
+      date.appendChild(dateInput);*/
+
+      let dateCell = row.insertCell(0);
+      dateCell.style.display = 'flex';
+
+      var selectListStartMonth = document.createElement("select");
+      selectListStartMonth.classList.add("work-date-start-month-select");
+      selectListStartMonth.value = this.target.work[i]['startMonth'];
+      dateCell.appendChild(selectListStartMonth);
+
+      for (var j = 1; j <= 12; j++) {
+          var option = document.createElement("option");
+          option.value = j;
+          option.text = j;
+          if (this.target.work[i]['startMonth'] == j) {
+            option.selected = true;
+          } else  {
+            option.selected = false;
+          }
+          selectListStartMonth.appendChild(option);
+      }
+
+      var selectListStartYear = document.createElement("select");
+      selectListStartYear.classList.add("work-date-start-year-select");
+      selectListStartYear.value = this.target.work[i]['startYear'];
+      dateCell.appendChild(selectListStartYear);
+
+      for (var j = 1900; j <= 2020; j++) {
+          var option = document.createElement("option");
+          option.value = j;
+          option.text = j;
+          //console.log(j);
+          if (this.target.work[i]['startYear'] == j) {
+            option.selected = true;
+          } else  {
+            option.selected = false;
+          }
+          selectListStartYear.appendChild(option);
+      }
+
+
+      var dateSepDiv = document.createElement("div");
+
+      var dateSeparator = document.createTextNode(" - ");
+      dateSepDiv.style.padding = "0px 10px 0px 10px";
+      dateSepDiv.appendChild(dateSeparator);
+      dateCell.appendChild(dateSepDiv);
+
+
+
+      var selectListEndMonth = document.createElement("select");
+      selectListEndMonth.classList.add("work-date-end-month-select");
+      selectListEndMonth.value = this.target.work[i]['endMonth'];
+      dateCell.appendChild(selectListEndMonth);
+
+      for (var j = 1; j <= 12; j++) {
+          var option = document.createElement("option");
+          option.value = j;
+          option.text = j;
+          if (parseInt(this.target.work[i]['endMonth'], 10) == j) {
+            option.selected = true;
+          } else  {
+            option.selected = false;
+          }
+          selectListEndMonth.appendChild(option);
+      }
+
+      var selectListEndYear = document.createElement("select");
+      selectListEndYear.classList.add("work-date-end-year-select");
+      selectListEndYear.value = this.target.work[i]['endYear'];
+      dateCell.appendChild(selectListEndYear);
+
+      for (var j = 1900; j <= 2020; j++) {
+          var option = document.createElement("option");
+          option.value = j;
+          option.text = j;
+          //console.log(j);
+          if (parseInt(this.target.work[i]['endYear'], 10) == j) {
+            option.selected = true;
+          } else  {
+            option.selected = false;
+          }
+          selectListEndYear.appendChild(option);
+      }
+
+      /*var checkbox = document.createElement('input');
+          checkbox.type = "checkbox";
+          checkbox.value = 1;
+          checkbox.name = "todo[]";
+
+      checkbox.onclick = function() {
+        console.log("SALUT BITCHES");
+        if(checkbox.checked){
+          console.log("Checked");
+        } else {
+          console.log("NOT Checked");
+        }
+      }
+
+      dateCell.appendChild(checkbox);*/
+
 
       let company = row.insertCell(1);
       let companyInput = document.createElement('input');
@@ -330,7 +430,7 @@ class LinkedInToJsonResume {
     let headerRow = table.insertRow(-1);
 
     var headerDiv = document.createElement("th");
-    headerDiv.innerHTML = "Period";
+    headerDiv.innerHTML = "Date";
     headerRow.appendChild(headerDiv);
 
     var headerDiv2 = document.createElement("th");
@@ -469,7 +569,7 @@ class LinkedInToJsonResume {
     let headerRow = table.insertRow(-1);
 
     var headerDiv = document.createElement("th");
-    headerDiv.innerHTML = "Period";
+    headerDiv.innerHTML = "Date";
     headerRow.appendChild(headerDiv);
 
     var headerDiv2 = document.createElement("th");
@@ -482,17 +582,37 @@ class LinkedInToJsonResume {
       row.classList.add("certif-row");
 
       let dateCell = row.insertCell(0);
-      let date = document.createElement("input");
+      /*let date = document.createElement("input");
       date.type = "text";
       date.size = 35;
       date.classList.add("certif-date-input");
       date.value = this.target.certifications[i]['date'];
-      dateCell.appendChild(date);
+      dateCell.appendChild(date);*/
+
+      
+
+      var selectListStartYear = document.createElement("select");
+      selectListStartYear.classList.add("certif-date-input");
+      selectListStartYear.value = this.target.certifications[i]['startDate'];
+      dateCell.appendChild(selectListStartYear);
+
+      for (var j = 1900; j <= 2020; j++) {
+          var option = document.createElement("option");
+          option.value = j;
+          option.text = j;
+          //console.log(j);
+          if (this.target.certifications[i]['startDate'] == j) {
+            option.selected = true;
+          } else  {
+            option.selected = false;
+          }
+          selectListStartYear.appendChild(option);
+      }
 
       let nameCell = row.insertCell(1);
       let name = document.createElement("input");
       name.type = "text";
-      name.size = 35;
+      name.size = 55;
       name.classList.add("certif-name-input");
       name.value = this.target.certifications[i]['name'];
       nameCell.appendChild(name);
@@ -564,6 +684,7 @@ class LinkedInToJsonResume {
 
   processPosition(source) {
     function processPosition(position) {
+      var today = new Date();
       let object = <Position>{
         company: position.companyName,
         position: position.title || '',
@@ -574,14 +695,22 @@ class LinkedInToJsonResume {
         highlights: [''],
         projects: [],
         accomplishments: [],
-        technologies: []
+        technologies: [],
+        startMonth: position.startDate.split('-')[1],
+        startYear: position.startDate.split('-')[0],
+        endMonth: position.endDate === null ? today.getMonth()+1 : position.endDate.split('-')[1],
+        endYear: position.endDate === null ? today.getFullYear() : position.endDate.split('-')[0],
       };
 
       if (position.endDate) {
         object.endDate = `${position.endDate}`;
         object.date = `${position.startDate}` + " - " + `${position.endDate}`;
+        object.endMonth: position.endDate.split('-')[1];
+        object.endYear: position.endDate.split('-')[0];
       } else {
         object.date = `${position.startDate}` + " - now";
+        object.endMonth: today.getMonth()+1;
+        object.endYear: today.getFullYear();
       }
 
       return object;
